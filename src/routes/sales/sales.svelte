@@ -1,6 +1,6 @@
 <script>
-	import PaymentProcessor from '../components/PaymentProcessor.svelte';
-	import { cart } from '../store/cart.js'; // Assuming a cart store for the transaction
+	import PaymentProcessor from '../../components/PaymentProcessor.svelte';
+	import { cart } from '../../store/cart.js'; // Assuming a cart store for the transaction
 
 	let totalAmount = 0;
 
