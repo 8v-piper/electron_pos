@@ -2,7 +2,7 @@ import { connectToDatabase } from '$lib/db';
 import { ObjectId } from 'mongodb'; // Required for querying by _id
 
 // GET request: Fetch specific user
-export async function get({ params }) {
+export async function GET({ params }) {
     const { db } = await connectToDatabase();
     const { id } = params;
     
