@@ -1,5 +1,7 @@
 <script>
 	import { user } from '../store/user.js';
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import cashDrawer from '../utils/cashDrawer.js';
 
 	let currentUser;
@@ -19,7 +21,13 @@
 	}
 
 	onMount(() => {
-		loadConfig();
+		user.subscribe(($user) => {
+			if (!$user.isLoggedIn) {
+				goto('/login');
+			} else {
+				loadConfig();
+			}
+		});
 	});
 
 	// Redirect or hide content if the user is not admin or support
