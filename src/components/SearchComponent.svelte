@@ -9,21 +9,39 @@
 	export let searchResults = [];
 
 	let searchQuery = '';
+
+	let searchParams = {
+		name: '',
+		surname: '',
+		identityNumber: '',
+		telephoneNumber: ''
+	};
+
 	const drawerStore = getDrawerStore();
 
-	async function search(query) {
-		const results = await ipcRenderer.invoke(`search-${searchType}`, query);
+	// async function search(query) {
+	// 	const results = await ipcRenderer.invoke(`search-${searchType}`, query);
+	// 	searchResults = results;
+	// 	openDrawerWithResults();
+	// }
+
+	async function search(fieldName, fieldValue) {
+		const results = await ipcRenderer.invoke(`search-${searchType}`, { fieldName, fieldValue });
 		searchResults = results;
 		openDrawerWithResults();
 	}
 
-	const debouncedSearch = debounce((searchQuery) => {
-		search(searchQuery);
+	const debouncedSearch = debounce((fieldName, fieldValue) => {
+		search(fieldName, fieldValue);
 	}, 300);
 
 	onMount(() => {
 		debouncedSearch(searchQuery);
 	});
+
+	function handleInput(fieldName) {
+		debouncedSearch(fieldName, searchParams[fieldName]);
+	}
 
 	export function renderHtml(result) {
 		return renderResult
@@ -44,4 +62,30 @@
 	}
 </script>
 
-<input type="text" bind:value={searchQuery} on:input={() => debouncedSearch(searchQuery)} />
+<!-- <input type="text" bind:value={searchQuery} on:input={() => debouncedSearch(searchQuery)} /> -->
+<div>
+	<input
+		type="text"
+		bind:value={searchParams.name}
+		placeholder="Name"
+		on:input={() => handleInput('name')}
+	/>
+	<input
+		type="text"
+		bind:value={searchParams.surname}
+		placeholder="Surname"
+		on:input={() => handleInput('surname')}
+	/>
+	<input
+		type="text"
+		bind:value={searchParams.identityNumber}
+		placeholder="Identity Number"
+		on:input={() => handleInput('identityNumber')}
+	/>
+	<input
+		type="text"
+		bind:value={searchParams.telephoneNumber}
+		placeholder="Telephone Number"
+		on:input={() => handleInput('telephoneNumber')}
+	/>
+</div>
