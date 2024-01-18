@@ -1,5 +1,6 @@
 <script>
-	import { user } from '../store/user.js';
+	// import { user } from '../../store/customer';
+	import CustomerForm from '../../components/CustomerForm.svelte';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
@@ -11,3 +12,7 @@
 		});
 	});
 </script>
+
+<main>
+	<CustomerForm />
+</main>

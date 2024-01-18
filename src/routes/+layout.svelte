@@ -51,7 +51,11 @@
 					<!-- Leading content, often used for branding or main navigation -->
 					<AppRailAnchor href="/" selected={$page.url.pathname === '/'}>(Home Icon)</AppRailAnchor>
 				</svelte:fragment>
-
+				<!-- Registration Tile -->
+				<AppRailAnchor href="./registration" title="Register">
+					<svelte:fragment slot="lead">(Registration Icon)</svelte:fragment>
+					<span>Register</span>
+				</AppRailAnchor>
 				<!-- App Rail Tiles -->
 				<AppRailTile bind:group={currentTile} name="tile-1" value={0} title="Tile 1">
 					<svelte:fragment slot="lead">(Icon)</svelte:fragment>
